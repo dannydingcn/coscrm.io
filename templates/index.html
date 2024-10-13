@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRM系统 - 首页</title>
+    <style>
+    a[class="sub"] {
+    display: block;
+    width: 120px;
+    height: 30px;
+    background-color: #407ACF;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+}
+    a[class="sub2"] {
+    display: block;
+    width: 150px;
+    height: 30px;
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+}
+    </style>
+</head>
+<body>
+    <h1>客户清单</h1>
+    <table border="1">
+        <tr>
+            <th>编号</th>
+            <th>分级</th>
+            <th>姓名</th>
+            <th>行为</th>
+        </tr>
+        {% for customer in customers %}
+        <tr>
+            <td>{{ customer.id }}</td>
+            <td>{{ customer.rating }}</td>
+            <td>{{ customer.name }}</td>
+            <td>
+                <a href="{{ url_for('edit_customer', id=customer.id) }}">更新</a>
+                <a href="{{ url_for('query_customer') }}?name={{ customer.name }}">详情</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <table>
+        <tr>
+            <td><p>
+                <a href="{{ url_for('export') }}"class="sub">导出为Excel</a> 
+                
+                </p>
+            </td>
+            <td><p>
+                <a href="{{ url_for('import_customers') }}" class="sub">Excel导入</a> </p></tr>
+                </p>
+            </td></tr>  
+        <tr>
+            <p><a href="{{ url_for('add_customer') }}" class="sub2">添加新客户</a> <!-- 添加导出链接 --></p>
+        </tr>
+        <tr>
+            <td><p>
+                <a href="{{ url_for('diary_welcome') }}"class="sub">编写日记</a> 
+                </p>
+
+            </td>    
+        </tr>
+    </table>
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRM系统 - 添加新客户</title>
+    <style>  
+    /* 全局样式 */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+        color: #333;
+    }
+
+    /* 容器样式 */
+    .form-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    /* 标题样式 */
+    h1, h3 {
+        text-align: center;
+        color: #333;
+    }
+
+    /* 输入框和按钮样式 */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    select,
+    textarea,
+    button {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    /* 按钮样式 */
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /* 焦点样式 */
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        outline: none;
+    }
+
+    /* 错误和验证消息样式 */
+    .error {
+        color: #dc3545;
+        margin-bottom: 10px;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+        .form-container {
+            margin: 20px;
+        }
+    }
+    </style>  
+    <script>function validateIdNumber(idNumber) {
+    var regex = /^[1-9]\d{5}(18|19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/;
+    if (!regex.test(idNumber)) {
+        return false; // 格式不正确
+    }
+
+    // 校验码验证
+    var sum = 0;
+    var coefficients = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+    var checkCodes = "10X98765432";
+    for (var i = 0; i < 17; i++) {
+        sum += parseInt(idNumber[i]) * coefficients[i];
+    }
+    var calculatedCheckCode = checkCodes[sum % 11];
+    var providedCheckCode = idNumber[17].toUpperCase();
+
+    return calculatedCheckCode === providedCheckCode;
+}
+
+// 在表单提交时调用
+document.getElementById("yourFormId").addEventListener("submit", function(event) {
+    var idNumber = document.getElementById("id_number").value;
+    if (!validateIdNumber(idNumber)) {
+        alert("请输入有效的身份证号码");
+        event.preventDefault(); // 阻止表单提交
+    }
+});</script>
+</head>
+<body>
+    <h1>添加新客户信息</h1>
+    <div class="form-container">
+    <form method="post">
+        <div class="tab">
+            <h3>客户基本信息</h3>
+            <div class="row">  
+                <div class="tab.title">
+                    <label for="rating">评级:</label>
+                </div>
+                <div class="column">
+                    <input type="text" id="rating" name="rating" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="name">姓名:</label>
+                <input type="text" id="name" name="name" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="gender">性别:</label>
+                <select  id="gender" name="gender" >
+                    <option value="">请选择性别</option>
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                    <!-- Add other nationalities -->
+                </select><br><br>
+                </div>
+                
+
+                <div class="column"><label for="birth_date">出生日期:</label>
+        <!--         <input type="text" id="birth_date" name="birth_date" required><br><br>
+                </div>
+                <script>
+                  document.addEventListener("DOMContentLoaded", function() {
+                    flatpickr("#datePicker");
+                  });
+                </script> -->
+                <input type="date" id="birth_date" name="birth_date" required><br><br>
+                </div> 
+            </div>
+
+            <div class="row">
+                <div class="column"><label for="age">年龄:</label>
+                <input type="text" id="age" name="age" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="nationality">国籍:</label>
+                <input type="text" id="nationality" name="nationality" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="ethnicity">种族:</label>
+                <input type="text" id="ethnicity" name="ethnicity" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="id_number">身份证号:</label>
+                <input type="text" name="id_number" pattern="\d{17}[xX0-9]" title="请输入正确的身份证号码" required><br><br>
+                </div>
+
+            </div>
+
+            <div class="row">            
+
+                <div class="column"><label for="marital_status">婚姻状况:</label>
+                <select  id="marital_status" name="marital_status">
+                    <option value="">请选择婚姻状况</option>
+                    <option value="未婚">未婚</option>
+                    <option value="已婚">已婚</option>
+                    <option value="离异">离异</option>
+                    <option value="丧偶">丧偶</option>
+                    <!-- Add other nationalities -->
+                </select><br><br>
+                </div>
+
+
+                <div class="column"><label for="religion">宗教信仰:</label>
+                <select  id="religion" name="religion">
+                    <option value="">宗教信仰</option>
+                    <option value="佛教">佛教</option>
+                    <option value="道教">道教</option>
+                    <option value="基督教">基督教</option>
+                    <option value="天主教">天主教</option>
+                    <option value="伊斯兰教">伊斯兰教</option>
+                    <option value="唯物主义">唯物主义</option>
+                    <option value="印度教">印度教</option>
+                    <option value="神道教">神道教</option>
+                    <option value="无">无</option>
+                    <!-- Add other nationalities -->
+                </select><br><br>
+                </div>
+
+                <div class="column"><label for="drives_car">是否喜欢开车:</label><br><br>
+                <label for="like_driver_car">喜欢开车</label>
+                <input type="radio" id="like_driver_car" name="drives_car" value="True">
+                <label for="hate_driver_car">不喜欢开车</label>
+                <input type="radio" id="hate_driver_car" name="drives_car" value="False">
+                </div>
+            </div>
+            
+
+            <div class="row">
+                <div class="column"><label for="address">地址:</label>
+                <input type="text" id="address" name="address" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="work_address">工作地址:</label>
+                <input type="text" id="work_address" name="work_address" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="phone_number1">电话号码1:</label>
+                <input type="text" id="phone_number1" name="phone_number1" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="phone_number2">电话号码2:</label>
+                <input type="text" id="phone_number2" name="phone_number2" required><br><br>
+                </div>
+            </div>
+            
+
+            <div class="row">
+                <div class="column"><label for="email">电子邮箱:</label>
+                <input type="text" id="email" name="email" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="wechat">微信:</label>
+                <input type="text" id="wechat" name="wechat" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="qq">QQ:</label>
+                <input type="text" id="qq" name="qq" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="weibo">微博:</label>
+                <input type="text" id="weibo" name="weibo" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="douyin">抖音:</label>
+                <input type="text" id="douyin" name="douyin" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="fax">传真:</label>
+                <input type="text" id="fax" name="fax" required><br><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab">
+            <h3>教育及工作情况</h3>
+            <div class="row">
+                <div class="column">
+                <label for="education_level">教育程度:</label>
+                <select  id="education_level" name="education_level" >
+                    <option value="">教育水平</option>
+                    <option value="小学">小学</option>
+                    <option value="初中">初中</option>
+                    <option value="高中">高中\职高</option>
+                    <option value="大专">大专</option>
+                    <option value="本科">本科</option>
+                    <option value="研究生">研究生</option>
+                    <option value="博士">博士</option>
+                    <option value="其他">其他</option>
+                </select><br><br>
+                </div>
+                
+
+                <div class="column"><label for="graduation_college">毕业院校:</label>
+                <input type="text" id="graduation_college" name="graduation_college" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="major">专业:</label>
+                <input type="text" id="major" name="major" required><br><br>
+                </div>
+                
+
+                <div class="column">
+                    <label for="degree">学位:</label>
+                    <select  id="degree" name="degree" >
+                        <option value="">学位</option>
+                        <option value="工学学士">工学学士</option>
+                        <option value="理学学士">理学学士</option>
+                        <option value="法学学士">法学学士</option>
+                        <option value="管理学学士">管理学学士</option>
+                        <option value="医学学士">医学学士</option>
+                        <option value="其他学士">其他学士</option>
+                        <option value="硕士">硕士</option>
+                        <option value="博士">博士</option>
+                        <option value="无">无</option>
+                        <option value="不清楚">不清楚</option>
+                    </select><br><br>
+                </div>
+                
+
+                <div class="column"><label for="academic_achievements">学术成就:</label>
+                <input type="text" id="academic_achievements" name="academic_achievements" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="language_skills">语言能力:</label>
+                <input type="text" id="language_skills" name="language_skills" required><br><br>
+                </div>
+            </div>    
+
+            <div class="row">
+                <div class="column"><label for="workplace">公司:</label>
+                <input type="text" id="workplace" name="workplace" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="position">职位:</label>
+                <input type="text" id="position" name="position" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="job_level">职级:</label>
+                <input type="text" id="job_level" name="job_level" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="job_function">工作职责:</label>
+                <input type="text" id="job_function" name="job_function" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="work_experience_years">工作年限:</label>
+                <input type="text" id="work_experience_years" name="work_experience_years" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="professional_skills">专业技能:</label>
+                <input type="text" id="professional_skills" name="professional_skills" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="work_experience">工作经验:</label>
+                <input type="text" id="work_experience" name="work_experience" required><br><br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column"><label for="training_experience">培训经历:</label>
+                <input type="text" id="training_experience" name="training_experience" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="decision_style">决策风格:</label>
+                <input type="text" id="decision_style" name="decision_style" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="career_goal_plan">职业规划目标:</label>
+                <input type="text" id="career_goal_plan" name="career_goal_plan" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="software_skills">软件技能:</label>
+                <input type="text" id="software_skills" name="software_skills" required><br><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab">
+            <h3>个人情况</h3>
+            <div class="row">
+                <div class="column"><label for="income_level">收入水平:</label>
+                <input type="text" id="income_level" name="income_level" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="bank_account_info">银行账户信息:</label>
+                <input type="text" id="bank_account_info" name="bank_account_info" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="financial_status">财务状况:</label>
+                <input type="text" id="financial_status" name="financial_status" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="credit_record">信用记录:</label>
+                <input type="text" id="credit_record" name="credit_record" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="investment">投资:</label>
+                <input type="text" id="investment" name="investment" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="debt">债务:</label>
+                <input type="text" id="debt" name="debt" required><br><br>
+                </div>
+            </div>    
+
+            <div class="row">
+                <div class="column"><label for="height">身高:</label>
+                <input type="text" id="height" name="height" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="weight">体重:</label>
+                <input type="text" id="weight" name="weight" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="blood_type">血型:</label>
+                <input type="text" id="blood_type" name="blood_type" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="health_status">健康状况:</label>
+                <input type="text" id="health_status" name="health_status" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="medical_history">病史:</label>
+                <input type="text" id="medical_history" name="medical_history" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="drug_allergies">药物过敏:</label>
+                <input type="text" id="drug_allergies" name="drug_allergies" required><br><br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column"><label for="communication_style">沟通风格方式:</label>
+                <input type="text" id="communication_style" name="communication_style" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="favorite_sports">喜爱的运动:</label>
+                <input type="text" id="favorite_sports" name="favorite_sports" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="favorite_music">喜爱的音乐:</label>
+                <input type="text" id="favorite_music" name="favorite_music" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="favorite_movies">喜爱的电影:</label>
+                <input type="text" id="favorite_movies" name="favorite_movies" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="favorite_books">喜爱的书籍:</label>
+                <input type="text" id="favorite_books" name="favorite_books" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="cultural_stance">文化立场:</label>
+                <input type="text" id="cultural_stance" name="cultural_stance" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="moral_beliefs">道德观念:</label>
+                <input type="text" id="moral_beliefs" name="moral_beliefs" required><br><br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column"><label for="worldview">世界观:</label>
+                <input type="text" id="worldview" name="worldview" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="travel_experience">旅行经历:</label>
+                <input type="text" id="travel_experience" name="travel_experience" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="dream_destination">梦想目的地:</label>
+                <input type="text" id="dream_destination" name="dream_destination" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="art_preference">艺术偏好:</label>
+                <input type="text" id="art_preference" name="art_preference" required><br><br>
+                </div>
+            </div>    
+        </div>
+
+        <div class="tab">
+            <h3>社会关系</h3>
+            <div class="row">
+                <div class="column"><label for="family_members">家庭成员:</label>
+                <input type="text" id="family_members" name="family_members" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="spouse_info">配偶信息:</label>
+                <input type="text" id="spouse_info" name="spouse_info" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="children_info">子女信息:</label>
+                <input type="text" id="children_info" name="children_info" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="friends_info">朋友信息:</label>
+                <input type="text" id="friends_info" name="friends_info" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="emotional_experience">情感体验:</label>
+                <input type="text" id="emotional_experience" name="emotional_experience" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="social_network">社交网络:</label>
+                <input type="text" id="social_network" name="social_network" required><br><br>
+                </div>
+            </div>    
+
+            <div class="row">
+                <div class="column"><label for="political_stance">政治立场:</label>
+                <input type="text" id="political_stance" name="political_stance" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="party_affiliation">党派归属:</label>
+                <input type="text" id="party_affiliation" name="party_affiliation" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="criminal_record">犯罪记录:</label>
+                <input type="text" id="criminal_record" name="criminal_record" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="legal_suits">法律诉讼:</label>
+                <input type="text" id="legal_suits" name="legal_suits" required><br><br>
+                </div>
+            </div>    
+
+            <div class="row">
+                <div class="column"><label for="living_habits">生活习惯:</label>
+                <input type="text" id="living_habits" name="living_habits" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="daily_routine">日常习惯:</label>
+                <input type="text" id="daily_routine" name="daily_routine" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="unique_hobbies">独特爱好:</label>
+                <input type="text" id="unique_hobbies" name="unique_hobbies" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="eating_habits">饮食习惯:</label>
+                <input type="text" id="eating_habits" name="eating_habits" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="sleeping_habits">睡眠习惯:</label>
+                <input type="text" id="sleeping_habits" name="sleeping_habits" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="spending_habits">消费习惯:</label>
+                <input type="text" id="spending_habits" name="spending_habits" required><br><br>
+                </div>
+            </div>   
+
+            <div class="row">
+                <div class="column"><label for="personality_traits">性格特质:</label>
+                <input type="text" id="personality_traits" name="personality_traits" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="emotional_state">情绪状态:</label>
+                <input type="text" id="emotional_state" name="emotional_state" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="stress_management">压力管理:</label>
+                <input type="text" id="stress_management" name="stress_management" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="fears_weaknesses">恐惧与弱点:</label>
+                <input type="text" id="fears_weaknesses" name="fears_weaknesses" required><br><br>
+                </div>
+                
+
+                <div class="column"><label for="influence_range">影响范围:</label>
+                <input type="text" id="influence_range" name="influence_range" required><br><br>
+                </div>
+            </div>
+        </div>  
+
+        <div class="tab">
+            <div class="row">
+                <div class="column"><label for="shared_milestones">共同里程碑:</label>
+                <textarea id="shared_milestones" name="shared_milestones" rows="4" cols="50" placeholder="在这里输入一起经历过的重要事情..."></textarea><br><br>
+                </div>
+            </div>
+        </div>
+
+        <input type="submit" value="添加新客户信息">
+    </form>
+    </div>
+    <p>
+        <a href="{{ url_for('index') }}">返回客户清单</a>
+    </p>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>上传Excel文件</title>  
+</head>  
+<body>  
+    <h1>请上传Excel文件</h1>  
+    <form id="uploadForm" enctype="multipart/form-data">  
+        <input type="file" id="fileInput" name="file" accept=".xlsx,.xls">  
+        <button type="submit">Upload</button>  
+    </form>  
+    <p id="status"></p>  
+  
+    <script>  
+        document.getElementById('uploadForm').addEventListener('submit', function(event) {  
+            event.preventDefault(); // 阻止表单的默认提交行为  
+  
+            var formData = new FormData();  
+            var fileInput = document.getElementById('fileInput');  
+            formData.append('file', fileInput.files[0]);  
+  
+            var xhr = new XMLHttpRequest();  
+            xhr.open('POST', '/upload', true); // 假设后端处理上传的URL是/upload  
+  
+            xhr.onload = function() {  
+                if (xhr.status === 200) {  
+                    document.getElementById('status').innerText = 'File uploaded successfully!';  
+                } else {  
+                    document.getElementById('status').innerText = 'Failed to upload file.';  
+                }  
+            };  
+  
+            xhr.send(formData);  
+        });  
+    </script>  
+</body>  
+</html>

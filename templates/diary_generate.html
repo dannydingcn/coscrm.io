@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加新日记</title>
+    <style>
+    a[class="sub"] {
+    display: block;
+    width: 150px;
+    height: 30px;
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    color: black;
+    text-decoration: none;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 5px;
+}
+    </style>
+</head>
+<body>
+    <h1>添加新的日记</h1>
+    <form method="post">
+        <label for="person">相关人员：</label>
+        <input type="text" id="person" name="person" required><br><br>
+        <label for="location">地点：</label>
+        <input type="text" id="location" name="location" required><br><br>
+        <label for="content">正文:</label>
+        <textarea id="content" name="content" required></textarea><br><br>
+        <input type="submit" value="添加新日记">
+    </form>
+    <p>
+        <tr>
+            <td><p>
+                <a href="{{  url_for('diary_welcome') }}" class="sub">日记首页</a> 
+                </p>
+            </td>
+            <td><p>
+                <a href="{{ url_for('index') }}" class="sub">返回客户清单</a> 
+                </p>
+            </td>
+        </tr>
+    </p>
+</body>
+</html>

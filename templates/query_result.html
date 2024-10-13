@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRM System - Query Result</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #fff;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 24px;
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            background-color: #f7f7f7;
+            padding-left: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 14px;
+        }
+        th {
+            background-color: #e9ecef;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .label, .value {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+        .value {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>客户信息详情</h1>
+        {% if customer %}
+            <div class="section">
+                <div class="section-title">基本信息</div>
+                <table>
+                    <tr>
+                        <th>姓名:</th>
+                        <th>性别:</th>
+                        <th>出生日期:</th>
+                        <th>年龄:</th>
+                        <th>国籍:</th>
+                        <th>种族:</th>
+                        <th>身份证号:</th>
+                        <th>婚姻状况:</th>
+                        <th>宗教信仰:</th>
+                        <th>是否喜欢开车:</th>
+                    </tr>
+                    <tr>
+                        <td>{{ customer.name }}</td>
+                        <td>{{ customer.gender }}</td>
+                        <td>{{ customer.birth_date }}</td>
+                        <td>{{ customer.age }}</td>
+                        <td>{{ customer.nationality }}</td>
+                        <td>{{ customer.ethnicity }}</td>
+                        <td>{{ customer.id_number }}</td>
+                        <td>{{ customer.marital_status }}</td>
+                        <td>{{ customer.religion }}</td>
+                        <td>{{ customer.drives_car }}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="section">
+                <div class="section-title">联系方式</div>
+                <table>
+                    <tr>
+                        <th>地址:</th>
+                        <th>工作地址:</th>
+                        <th>电话号码1:</th>
+                        <th>电话号码2:</th>
+                        <th>电子邮箱:</th>
+                        <th>微信:</th>
+                        <th>QQ:</th>
+                        <th>微博:</th>
+                        <th>抖音:</th>
+                        <th>传真:</th>
+                    </tr>
+                    <tr>
+                        <td>{{ customer.address }}</td>
+                        <td>{{ customer.work_address }}</td>
+                        <td>{{ customer.phone_number1 }}</td>
+                        <td>{{ customer.phone_number2 }}</td>
+                        <td>{{ customer.email }}</td>
+                        <td>{{ customer.wechat }}</td>
+                        <td>{{ customer.qq }}</td>
+                        <td>{{ customer.weibo }}</td>
+                        <td>{{ customer.douyin }}</td>
+                        <td>{{ customer.fax }}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="section">
+                <div class="section-title">教育程度</div>
+                <table>
+                    <tr>
+                        <th>教育程度:</th>
+                        <th>毕业院校:</th>
+                        <th>专业:</th>
+                        <th>学位:</th>
+                        <th>学术成就:</th>
+                        <th>语言能力:</th>
+                    </tr>
+                    <tr>
+                        <td>{{ customer.education_level }}</td>
+                        <td>{{ customer.graduation_college }}</td>
+                        <td>{{ customer.major }}</td>
+                        <td>{{ customer.degree }}</td>
+                        <td>{{ customer.academic_achievements }}</td>
+                        <td>{{ customer.language_skills }}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="section">
+                <div class="section-title">职业信息</div>
+                <table>
+                    <tr>
+                        <th>工作地点:</th>
+                        <th>职位:</th>
+                        <th>职级:</th>
+                        <th>工作职责:</th>
+                        <th>工作经验年数:</th>
+                        <th>专业技能:</th>
+                        <th>工作经验:</th>
+                        <th>培训经历:</th>
+                        <th>决策风格:</th>
+                        <th>职业规划目标:</th>
+                        <th>软件技能:</th>
+                    </tr>
+                    <tr>
+                        <td>{{ customer.workplace }}</td>
+                        <td>{{ customer.position }}</td>
+                        <td>{{ customer.job_level }}</td>
+                        <td>{{ customer.job_function }}</td>
+                        <td>{{ customer.work_experience_years }}</td>
+                        <td>{{ customer.professional_skills }}</td>
+                        <td>{{ customer.work_experience }}</td>
+                        <td>{{ customer.training_experience }}</td>
+                        <td>{{ customer.decision_style }}</td>
+                        <td>{{ customer.career_goal_plan }}</td>
+                        <td>{{ customer.software_skills }}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="section">
+                <div class="section-title">财务情况</div>
+                <table>
+                    <tr>
+                        <th>收入水平:</th>
+                        <th>银行账户信息:</th>
+                        <th>财务状况:</th>
+                        <th>信用记录:</th>
+                        <th>投资:</th>
+                        <th>债务:</th>
+                    </tr>
+                    <tr>
+                        <td>{{ customer.income_level }}</td>
+                        <td>{{ customer.bank_account_info }}</td>
+                        <td>{{ customer.financial_status }}</td>
+                        <td>{{ customer.credit_record }}</td>
+                        <td>{{ customer.investment }}</td>
+                        <td>{{ customer.debt }}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="section">
+                <div class="section-title">体标健康状况</div>
+                <table>
+                    <tr>
+                        <th>身高:</th>
+                        <th>体重:</th>
+                        <th>血型:</th>
+                        <th>健康状况:</th>
+                        <th>病史:</th>
+                        <th>药物过敏:</th>
+                    </tr>
+                    <tr>
+                        <td>{{ customer.height }}</td>
+                        <td>{{ customer.weight }}</td>
+                        <td>{{ customer.blood_type }}</td>
+                        <td>{{ customer.health_status }}</td>
+                        <td>{{ customer.medical_history }}</td>
+                        <td>{{ customer.drug_allergies }}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="section">
+                <div class="section-title">风格爱好</div>
+                <table>
+                    <tr>
+                        <th>沟通风格方式:</th>
+                        <th>喜爱的运动:</th>
+                        <th>喜爱的音乐:</th>
+                        <th>喜爱的电影:</th>
+                        <th>喜爱的书籍:</th>
+                        <th>文化立场:</th>
+                        <th>道德观念:</th>
+                        <th>世界观:</th>
+                        <th>旅行经历:</th>
+                        <th>梦想目的地:</th>
+                        <th>艺术偏好:</th>
+                    </tr>
+                    <tr>
+                        <td>{{ customer.communication_style }}</td>
+                        <td>{{ customer.favorite_sports }}</td>
+                        <td>{{ customer.favorite_music }}</td>
+                        <td>{{ customer.favorite_movies }}</td>
+                        <td>{{ customer.favorite_books }}</td>
+                        <td>{{ customer.cultural_stance }}</td>
+                        <td>{{ customer.moral_beliefs }}</td>
+                        <td>{{ customer.worldview }}</td>
+                        <td>{{ customer.travel_experience }}</td>
+                        <td>{{ customer.dream_destination }}</td>
+                        <td>{{ customer.art_preference }}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="section">
+                <div class="section-title">社会关系</div>
+                <table>
+                    <tr>
+                        <th>家庭成员:</th>
+                        <th>配偶信息:</th>
+                        <th>子女信息:</th>
+                        <th>朋友信息:</th>
+                        <th>情感体验:</th>
+                        <th>社交网络:</th>
+                        <th>政治立场:</th>
+                        <th>党派归属:</th>
+                        <th>犯罪记录:</th>
+                        <th>法律诉讼:</th>
+                    </tr>
+                    <tr>
+                        <td>{{ customer.family_members }}</td>
+                        <td>{{ customer.spouse_info }}</td>
+                        <td>{{ customer.children_info }}</td>
+                        <td>{{ customer.friends_info }}</td>
+                        <td>{{ customer.emotional_experience }}</td>
+                        <td>{{ customer.social_network }}</td>
+                        <td>{{ customer.political_stance }}</td>
+                        <td>{{ customer.party_affiliation }}</td>
+                        <td>{{ customer.criminal_record }}</td>
+                        <td>{{ customer.legal_suits }}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="section">
+                <div class="section-title">个人习惯</div>
+                <table>
+                    <tr>
+                        <th>生活习惯:</th>
+                        <th>日常习惯:</th>
+                        <th>独特爱好:</th>
+                        <th>饮食习惯:</th>
+                        <th>睡眠习惯:</th>
+                        <th>消费习惯:</th>
+                    </tr>
+                    <tr>
+                        <td>{{ customer.living_habits }}</td>
+                        <td>{{ customer.daily_routine }}</td>
+                        <td>{{ customer.unique_hobbies }}</td>
+                        <td>{{ customer.eating_habits }}</td>
+                        <td>{{ customer.sleeping_habits }}</td>
+                        <td>{{ customer.spending_habits }}</td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <div class="section">
+                <div class="section-title">性格情绪</div>
+                <table>
+                    <tr>
+                        <th>性格特质:</th>
+                        <th>情绪状态:</th>
+                        <th>压力管理:</th>
+                        <th>恐惧与弱点:</th>
+                        <th>影响范围:</th>
+                    </tr>
+                    <tr>
+                        <td>{{ customer.personality_traits }}</td>
+                        <td>{{ customer.emotional_state }}</td>
+                        <td>{{ customer.stress_management }}</td>
+                        <td>{{ customer.fears_weaknesses }}</td>
+                        <td>{{ customer.influence_range }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="section">
+                <div class="section-title">共同里程碑</div>
+                <div class="label">共同里程碑:</div>
+                <div class="value">{{ customer.shared_milestones }}</div>
+            </div>
+            <p>
+                <a href="{{ url_for('index') }}">返回客户清单</a>
+            </p>
+        {% else %}
+            <p>No customer found with that name.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

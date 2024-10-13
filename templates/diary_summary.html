@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diary Summary</title>
+</head>
+<body>
+    <h1>Diary Summary</h1>
+    <ul>
+        {% for entry in entries %}
+            <li>{{ entry.date }} - {{ entry.person }} in {{ entry.location }}</li>
+        {% endfor %}
+    </ul>
+    <p><a href="{{ url_for('diary_generate') }}">Add a new entry</a></p>
+</body>
+</html>

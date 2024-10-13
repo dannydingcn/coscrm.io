@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CRM系统 - 更新客户信息</title>
+    <style>  
+    /* 全局样式 */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f7f7f7;
+        color: #333;
+    }
+
+    /* 容器样式 */
+    .form-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+    }
+
+    /* 标题样式 */
+    h1, h3 {
+        text-align: center;
+        color: #333;
+    }
+
+    /* 输入框和按钮样式 */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    select,
+    textarea,
+    button {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 16px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    /* 按钮样式 */
+    button {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+    /* 焦点样式 */
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #80bdff;
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+        outline: none;
+    }
+
+    /* 错误和验证消息样式 */
+    .error {
+        color: #dc3545;
+        margin-bottom: 10px;
+    }
+
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+        .form-container {
+            margin: 20px;
+        }
+    }
+    </style>  
+</head>
+<body>
+    <h1>更新客户信息</h1>
+    <div class="form-container">
+    <form method="post">
+            <div class="tab">
+            <h3>客户基本信息</h3>
+            <div class="row">  
+                <div class="column">
+                    <label for="rating">评级:</label>
+                    <input type="text" id="rating" name="rating" value="{{customer.rating}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="name">姓名:</label>
+                    <input type="text" id="name" name="name" value="{{customer.name}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="gender">性别:</label>
+                    <input type="text" id="gender" name="gender" value="{{customer.gender}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="birth_date">出生日期:</label>
+                    <input type="date" id="birth_date" name="birth_date" value="{{customer.birth_date}}" required><br><br>
+                </div> 
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <label for="age">年龄:</label>
+                    <input type="text" id="age" name="age" value="{{customer.age}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="nationality">国籍:</label>
+                    <input type="text" id="nationality" name="nationality" value="{{customer.nationality}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="ethnicity">种族:</label>
+                    <input type="text" id="ethnicity" name="ethnicity" value="{{customer.ethnicity}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="id_number">身份证号:</label>
+                    <input type="text" id="id_number" name="id_number" value="{{customer.id_number}}" pattern="\d{17}[xX0-9]" title="请输入正确的身份证号码" required><br><br>
+                </div>
+            </div>
+
+            <div class="row">            
+                <div class="column">
+                    <label for="marital_status">婚姻状况:</label>
+                    <input type="text" d="marital_status" name="marital_status" value="{{customer.marital_status}}" required><br><br>
+                </div>
+
+                <div class="column">
+                    <label for="religion">宗教信仰:</label>
+                    <input type="text" id="religion" name="religion" value="{{customer.religion}}" required><br><br>
+                </div>
+
+                <div class="column">
+                    <label for="drives_car">是否喜欢开车:</label><br><br>
+                    <label for="like_driver_car">喜欢开车</label>
+                    <input type="radio" id="like_driver_car" name="drives_car" value="True" {{ 'checked' if customer.drives_car else '' }}>
+                    <label for="hate_driver_car">不喜欢开车</label>
+                    <input type="radio" id="hate_driver_car" name="drives_car" value="False" {{ 'checked' if not customer.drives_car else '' }}>
+                </div>
+            </div>
+            
+
+            <div class="row">
+                <div class="column">
+                    <label for="address">地址:</label>
+                    <input type="text" id="address" name="address" value="{{customer.address}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="work_address">工作地址:</label>
+                    <input type="text" id="work_address" name="work_address" value="{{customer.work_address}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="phone_number1">电话号码1:</label>
+                    <input type="text" id="phone_number1" name="phone_number1" value="{{customer.phone_number1}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="phone_number2">电话号码2:</label>
+                    <input type="text" id="phone_number2" name="phone_number2" value="{{customer.phone_number2}}" required><br><br>
+                </div>
+            </div>
+            
+
+            <div class="row">
+                <div class="column">
+                    <label for="email">电子邮箱:</label>
+                    <input type="text" id="email" name="email" value="{{customer.email}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="wechat">微信:</label>
+                    <input type="text" id="wechat" name="wechat" value="{{customer.wechat}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="qq">QQ:</label>
+                    <input type="text" id="qq" name="qq" value="{{customer.qq}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="weibo">微博:</label>
+                    <input type="text" id="weibo" name="weibo" value="{{customer.weibo}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="douyin">抖音:</label>
+                    <input type="text" id="douyin" name="douyin" value="{{customer.douyin}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="fax">传真:</label>
+                    <input type="text" id="fax" name="fax" value="{{customer.fax}}" required><br><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab">
+            <h3>教育及工作情况</h3>
+            <div class="row">
+                <div class="column">
+                <label for="education_level">教育程度:</label>
+                <input type="text" id="education_level" name="education_level" value="{{customer.education_level}}" required><br><br>
+                </div>
+
+
+                <div class="column">
+                    <label for="graduation_college">毕业院校:</label>
+                    <input type="text" id="graduation_college" name="graduation_college" value="{{customer.graduation_college}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="major">专业:</label>
+                    <input type="text" id="major" name="major" value="{{customer.major}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="degree">学位:</label>
+                    <input type="text" id="degree" name="degree" value="{{customer.degree}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="academic_achievements">学术成就:</label>
+                    <input type="text" id="academic_achievements" name="academic_achievements" value="{{customer.academic_achievements}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="language_skills">语言能力:</label>
+                    <input type="text" id="language_skills" name="language_skills" value="{{customer.language_skills}}" required><br><br>
+                </div>
+            </div>    
+
+            <div class="row">
+                <div class="column">
+                    <label for="workplace">公司:</label>
+                    <input type="text" id="workplace" name="workplace" value="{{customer.workplace}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="position">职位:</label>
+                    <input type="text" id="position" name="position" value="{{customer.position}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="job_level">职级:</label>
+                    <input type="text" id="job_level" name="job_level" value="{{customer.job_level}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="job_function">工作职责:</label>
+                    <input type="text" id="job_function" name="job_function" value="{{customer.job_function}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="work_experience_years">工作年限:</label>
+                    <input type="text" id="work_experience_years" name="work_experience_years" value="{{customer.work_experience_years}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="professional_skills">专业技能:</label>
+                    <input type="text" id="professional_skills" name="professional_skills" value="{{customer.professional_skills}}" required><br><br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <label for="work_experience">工作经验:</label>
+                    <input type="text" id="work_experience" name="work_experience" value="{{customer.work_experience}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="training_experience">培训经历:</label>
+                    <input type="text" id="training_experience" name="training_experience" value="{{customer.training_experience}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="decision_style">决策风格:</label>
+                    <input type="text" id="decision_style" name="decision_style" value="{{customer.decision_style}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="career_goal_plan">职业规划目标:</label>
+                    <input type="text" id="career_goal_plan" name="career_goal_plan" value="{{customer.career_goal_plan}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="software_skills">软件技能:</label>
+                    <input type="text" id="software_skills" name="software_skills" value="{{customer.software_skills}}" required><br><br>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab">
+            <h3>个人情况</h3>
+            <div class="row">
+                <div class="column">
+                    <label for="income_level">收入水平:</label>
+                    <input type="text" id="income_level" name="income_level" value="{{customer.income_level}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="bank_account_info">银行账户信息:</label>
+                    <input type="text" id="bank_account_info" name="bank_account_info" value="{{customer.bank_account_info}}" required><br><br>
+                </div>
+                
+                <div class="column">
+                    <label for="financial_status">财务状况:</label>
+                    <input type="text" id="financial_status" name="financial_status" value="{{customer.financial_status}}" required><br><br>
+                </div>
+
+                <div class="column"><label for="credit_record">信用记录:</label>
+                <input type="text" id="credit_record" name="credit_record" value="{{customer.credit_record}}" required><br><br>
+                </div>
+                
+                <div class="column"><label for="investment">投资:</label>
+                <input type="text" id="investment" name="investment" value="{{customer.investment}}" required><br><br>
+                </div>
+                
+                <div class="column"><label for="debt">债务:</label>
+                <input type="text" id="debt" name="debt" value="{{customer.debt}}" required><br><br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column"><label for="height">身高:</label>
+                <input type="text" id="height" name="height" value="{{customer.height}}" required><br><br>
+                </div>
+                
+                <div class="column"><label for="weight">体重:</label>
+                <input type="text" id="weight" name="weight" value="{{customer.weight}}" required><br><br>
+                </div>
+                
+                <div class="column"><label for="blood_type">血型:</label>
+                <input type="text" id="blood_type" name="blood_type" value="{{customer.blood_type}}" required><br><br>
+                </div>
+                
+                <div class="column"><label for="health_status">健康状况:</label>
+                <input type="text" id="health_status" name="health_status" value="{{customer.health_status}}" required><br><br>
+                </div>
+                
+                <div class="column"><label for="medical_history">病史:</label>
+                <input type="text" id="medical_history" name="medical_history" value="{{customer.medical_history}}" required><br><br>
+                </div>
+                
+                <div class="column"><label for="drug_allergies">药物过敏:</label>
+                <input type="text" id="drug_allergies" name="drug_allergies" value="{{customer.drug_allergies}}" required><br><br>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <label for="communication_style">沟通风格方式:</label>
+                    <input type="text" id="communication_style" name="communication_style" value="{{customer.communication_style}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="favorite_sports">喜爱的运动:</label>
+                    <input type="text" id="favorite_sports" name="favorite_sports" value="{{customer.favorite_sports}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="favorite_music">喜爱的音乐:</label>
+                    <input type="text" id="favorite_music" name="favorite_music" value="{{customer.favorite_music}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="favorite_movies">喜爱的电影:</label>
+                    <input type="text" id="favorite_movies" name="favorite_movies" value="{{customer.favorite_movies}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="favorite_books">喜爱的书籍:</label>
+                    <input type="text" id="favorite_books" name="favorite_books" value="{{customer.favorite_books}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="cultural_stance">文化立场:</label>
+                    <input type="text" id="cultural_stance" name="cultural_stance" value="{{customer.cultural_stance}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="moral_beliefs">道德观念:</label>
+                    <input type="text" id="moral_beliefs" name="moral_beliefs" value="{{customer.moral_beliefs}}" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <label for="worldview">世界观:</label>
+                    <input type="text" id="worldview" name="worldview" value="{{customer.worldview}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="travel_experience">旅行经历:</label>
+                    <input type="text" id="travel_experience" name="travel_experience" value="{{customer.travel_experience}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="dream_destination">梦想目的地:</label>
+                    <input type="text" id="dream_destination" name="dream_destination" value="{{customer.dream_destination}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="art_preference">艺术偏好:</label>
+                    <input type="text" id="art_preference" name="art_preference" value="{{customer.art_preference}}" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab">
+            <h3>社会关系</h3>
+            <div class="row">
+                <div class="column">
+                    <label for="family_members">家庭成员:</label>
+                    <input type="text" id="family_members" name="family_members" value="{{customer.family_members}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="spouse_info">配偶信息:</label>
+                    <input type="text" id="spouse_info" name="spouse_info" value="{{customer.spouse_info}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="children_info">子女信息:</label>
+                    <input type="text" id="children_info" name="children_info" value="{{customer.children_info}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="friends_info">朋友信息:</label>
+                    <input type="text" id="friends_info" name="friends_info" value="{{customer.friends_info}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="emotional_experience">情感体验:</label>
+                    <input type="text" id="emotional_experience" name="emotional_experience" value="{{customer.emotional_experience}}" required>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="column">
+                    <label for="social_network">社交网络:</label>
+                    <input type="text" id="social_network" name="social_network" value="{{customer.social_network}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="political_stance">政治立场:</label>
+                    <input type="text" id="political_stance" name="political_stance" value="{{customer.political_stance}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="party_affiliation">党派归属:</label>
+                    <input type="text" id="party_affiliation" name="party_affiliation" value="{{customer.party_affiliation}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="criminal_record">犯罪记录:</label>
+                    <input type="text" id="criminal_record" name="criminal_record" value="{{customer.criminal_record}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="legal_suits">法律诉讼:</label>
+                    <input type="text" id="legal_suits" name="legal_suits" value="{{customer.legal_suits}}" required>
+                </div>
+            </div>    
+
+            <div class="row">
+                <div class="column">
+                    <label for="living_habits">生活习惯:</label>
+                    <input type="text" id="living_habits" name="living_habits" value="{{customer.living_habits}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="daily_routine">日常习惯:</label>
+                    <input type="text" id="daily_routine" name="daily_routine" value="{{customer.daily_routine}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="unique_hobbies">独特爱好:</label>
+                    <input type="text" id="unique_hobbies" name="unique_hobbies" value="{{customer.unique_hobbies}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="eating_habits">饮食习惯:</label>
+                    <input type="text" id="eating_habits" name="eating_habits" value="{{customer.eating_habits}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="sleeping_habits">睡眠习惯:</label>
+                    <input type="text" id="sleeping_habits" name="sleeping_habits" value="{{customer.sleeping_habits}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="spending_habits">消费习惯:</label>
+                    <input type="text" id="spending_habits" name="spending_habits" value="{{customer.spending_habits}}" required>
+                </div>
+            </div>    
+
+            <div class="row">
+                <div class="column">
+                    <label for="personality_traits">性格特质:</label>
+                    <input type="text" id="personality_traits" name="personality_traits" value="{{customer.personality_traits}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="emotional_state">情绪状态:</label>
+                    <input type="text" id="emotional_state" name="emotional_state" value="{{customer.emotional_state}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="stress_management">压力管理:</label>
+                    <input type="text" id="stress_management" name="stress_management" value="{{customer.stress_management}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="fears_weaknesses">恐惧与弱点:</label>
+                    <input type="text" id="fears_weaknesses" name="fears_weaknesses" value="{{customer.fears_weaknesses}}" required>
+                </div>
+
+                <div class="column">
+                    <label for="influence_range">影响范围:</label>
+                    <input type="text" id="influence_range" name="influence_range" value="{{customer.influence_range}}" required><br><br>
+                </div>
+            </div>
+        </div>  
+
+        <div class="tab">
+            <div class="row">
+                <div class="column"><label for="shared_milestones">共同里程碑:</label>
+                <textarea id="shared_milestones" name="shared_milestones" rows="4" cols="50" placeholder="在这里输入一起经历过的重要事情...">{{customer.shared_milestones}}</textarea><br><br>
+                </div>
+            </div>
+        </div>
+            <input type="submit" value="更新客户信息">
+            </form>
+        </div>
+            <p>
+                <a href="{{ url_for('index') }}">返回客户清单</a>
+            </p>
+</body>
+</html>
